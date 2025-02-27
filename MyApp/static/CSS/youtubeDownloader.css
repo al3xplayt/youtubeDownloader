@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra sutil */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+.url {
+    background-color: rgb(247, 241, 233);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    max-width: 500px; /* Evita que se haga demasiado grande en pantallas grandes */
+    padding: 20px;
+    font-size: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.url h2 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.url form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.url input, .url select, .url button {
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.url button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.url button:hover {
+    background-color: #45a049;
+}
+
+.url input:focus, .url select:focus, .url button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(72, 186, 104, 0.6);
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 600px) {
+    .url {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .url h2 {
+        font-size: 1.2em;
+    }
+
+    .url input, .url select, .url button {
+        font-size: 1em;
+        padding: 10px;
+    }
+}

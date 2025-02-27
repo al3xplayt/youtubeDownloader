@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra sutil */
+}
+
+article.game img {
+    width: 200px;
+    height: 300px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra sutil para las imágenes */
+}
+
+header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 3em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: #222222;
+    border-radius: 10px;
+}
+
+section h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+article.game {
+    background-color: #333333;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Asegúrate de centrar los elementos dentro del artículo */
+    text-align: center; /* Centrar texto dentro del artículo */
+}
+
+article.game img {
+    width: 200px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+article.game h3 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+article.game p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+article.game a {
+    color: #00bfff;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s ease; /* Transición suave del color */
+}
+
+article.game a:hover {
+    text-decoration: underline;
+    color: #ff6347; /* Un color más cálido para el hover */
+}
+
+footer {
+    text-align: center;
+    background-color: #1f1f1f;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 1em;
+}
+
+footer {
+    
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #1f1f1f;
+    padding: 10px;
+    color: #ffffff;
+    font-size: 1em;
+}
+
+footer p {
+    margin-top: 10px;
+}
+
+
+#alanWake2 {
+    width: 60%;
+    height: auto;
+    max-width: 800px;
+    margin: 20px 0; /* Margen alrededor de la imagen */
+}
+
+@media screen and (max-width: 768px) {
+    #alanWake2 {
+        width: 80%; /* Hacer la imagen más ancha en pantallas pequeñas */
+        max-width: 600px; /* Limitar el tamaño máximo */
+    }
+}

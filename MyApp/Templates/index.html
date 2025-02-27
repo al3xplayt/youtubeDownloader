@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Una página sobre videojuegos, destacando lanzamientos como Alan Wake 2.">
+    <title>Página sobre Videojuegos</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='imgs/mando.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Bienvenidos a la Página de Videojuegos</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#games">Juegos</a></li>
+                <li><a href="#contact">Contacto</a></li>
+                <li><a href="{{ url_for('download_page')}}">Descargar videos youtube</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Últimos Lanzamientos</h2>
+        <p>Descubre lo más reciente en el mundo de los videojuegos.</p>
+    </section>
+
+    <section id="games">
+        <h2>Juegos Destacados</h2>
+        <article class="game">
+            <h3>Alan Wake 2</h3>
+            <img id="alanWake2" src="{{ url_for('static', filename='imgs/alanWake2.webp') }}" alt="Portada Alan Wake 2"> 
+            <p>Vuelve a adentrarte en la misteriosa ciudad de Bright Falls 13 años después de la desaparición del escritor Alan Wake,
+                está vez como Saga Anderson una agente del FBI investigando unos extraños asesinatos por la zona.</p>
+            <a href="https://www.remedygames.com/games/alan-wake-2" target="_blank">Más información</a>
+        </article>
+    </section>
+
+    <section id="contact">
+        <h2>Contacto</h2>
+        <p>Si tienes preguntas o comentarios, no dudes en <a href="mailto:contacto@videojuegos.com">contactarnos</a>.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Página de Videojuegos. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

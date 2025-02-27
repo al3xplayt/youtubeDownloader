@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar YouTube a MP3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/youtubeDownloader.css') }}">
+</head>
+<body>
+    <div class="url">
+        <h2>Descargador de musica de youtube</h2>
+        <p>Introduce el enlace de YouTube para convertirlo a MP3.</p>
+        <form method="POST">
+            <input type="text" name="url" placeholder="Enlace de YouTube" required>
+            <select name = "formato">
+                <option value="mp3">MP3</option>
+                <option value="mp4">MP4</option>      
+            </select>
+            <button type="submit">
+                Descargar
+            </button>
+        </form>
+    </div>
+    
+    {% if request.method == 'POST' %}
+        <h3>Descargando...</h3>
+    {% endif %}
+</body>
+</html>
