@@ -25,8 +25,17 @@ def download_video(url, formato):
         if formato == 'mp3':
             ydl_opts = {
                 'format': 'bestaudio/best',
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }],
                 'outtmpl': os.path.join(TEMP_DIR, '%(title)s.%(ext)s'),
                 'noplaylist': True,
+                'cookiesfile': None,
+                'age_limit': 25,
+                'extractor_args': {'youtube': {'skip': ['dash', 'hls']}},
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
             }
             if cookies:
                 ydl_opts['cookies'] = cookies
