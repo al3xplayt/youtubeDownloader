@@ -1,3 +1,9 @@
+"""
+Author: Alejandro
+Version: 1.0
+Date: Febrary 2025
+"""
+
 from flask import Flask, render_template, request, redirect, url_for, send_file, flash, after_this_request
 import os, yt_dlp, ffmpeg, threading
 from pathlib import Path
