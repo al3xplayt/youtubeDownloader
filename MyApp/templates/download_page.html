@@ -21,7 +21,9 @@
             </button>
         </form>
     </div>
-    
+    <div>
+        <a href="{{ url_for('index')}}"> Volver al inicio </a>
+    </div>
     {% if request.method == 'POST' %}
         <h3>Descargando...</h3>
     {% endif %}
