@@ -18,7 +18,9 @@ is_render = os.getenv('RENDER') is not None
 cookies = None  # No se establecen cookies en local
 if is_render:
     cookies = json.loads(os.getenv('cookies'))
-
+print("--------------------------------------------------------------------")
+print(f"Cookies:\n{cookies}")
+print("--------------------------------------------------------------------")
 def download_video(url, formato):
     try:
         # Definir opciones para yt-dlp según el formato
