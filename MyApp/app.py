@@ -5,7 +5,7 @@ Date: Febrary 2025
 """
 
 from flask import Flask, render_template, request, redirect, url_for, send_file, flash, after_this_request
-import os, yt_dlp, ffmpeg, threading
+import os, yt_dlp, ffmpeg, threading, json
 from pathlib import Path
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -13,6 +13,12 @@ app.secret_key = 'your_secret_key'
 TEMP_DIR = 'MyApp/temp_audio'
 os.makedirs(TEMP_DIR, exist_ok=True)
 os.system('pwd')
+
+is_render = os.getenv('RENDER') is not None
+cookies = None  # No se establecen cookies en local
+if is_render:
+    cookies = json.loads(os.getenv('cookies'))
+
 def download_video(url, formato):
     try:
         # Definir opciones para yt-dlp según el formato
@@ -22,13 +28,16 @@ def download_video(url, formato):
                 'outtmpl': os.path.join(TEMP_DIR, '%(title)s.%(ext)s'),
                 'noplaylist': True,
             }
+            if cookies:
+                ydl_opts['cookies'] = cookies
         else:  # Descargar como MP4
             ydl_opts = {
                 'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]',
                 'outtmpl': os.path.join(TEMP_DIR, '%(title)s.%(ext)s'),
                 'noplaylist': True,
             }
-
+            if cookies:
+                ydl_opts['cookies'] = cookies
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
