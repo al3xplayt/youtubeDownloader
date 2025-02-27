@@ -68,7 +68,11 @@ body {
 }
 #returnBttn {
     background-color: gray;
+    border: black;
     font-size: 1.1em;
+    border-radius: 5%;
+    margin: auto;
+    align-items: center;
 }
 /* Adaptación para pantallas pequeñas */
 @media (max-width: 600px) {
