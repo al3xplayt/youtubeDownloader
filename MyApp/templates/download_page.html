@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Descargar YouTube a MP3</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/youtubeDownloader.css') }}">
+    <link rel="stylesheet" href="MyApp\static\CSS\youtubeDownloader.css">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='CSS/youtubeDownloader.css') }}"> -->
 </head>
 <body>
     <div class="url">
@@ -20,8 +21,6 @@
                 Descargar
             </button>
         </form>
-    </div>
-    <div id="returnBttn">
         <button type="submit">
             <a href="{{ url_for('index')}}"> Volver al inicio </a>
         </button>
