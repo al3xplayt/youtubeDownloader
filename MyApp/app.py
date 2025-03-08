@@ -12,32 +12,23 @@ app.secret_key = 'your_secret_key'
 
 TEMP_DIR = 'MyApp/temp_audio'
 os.makedirs(TEMP_DIR, exist_ok=True)
-os.system('pwd')
+
+TEMP_DIR_FILES = 'MyApp/temp_files'
+os.makedirs(TEMP_DIR_FILES, exist_ok=True)
 
 is_render = os.getenv('RENDER') is not None
 cookies = None  # No se establecen cookies en local
 if is_render:
     cookiesPath = Path('/etc/secrets/cookies.json')
-print("--------------------------------------------------------------------")
-print(f"Cookies:\n{cookies}")
-print("--------------------------------------------------------------------")
+
 def download_video(url, formato):
     try:
         # Definir opciones para yt-dlp según el formato
         if formato == 'mp3':
             ydl_opts = {
                 'format': 'bestaudio/best',
-                'postprocessors': [{
-                    'key': 'FFmpegExtractAudio',
-                    'preferredcodec': 'mp3',
-                    'preferredquality': '192',
-                }],
                 'outtmpl': os.path.join(TEMP_DIR, '%(title)s.%(ext)s'),
                 'noplaylist': True,
-                'cookiesfile': None,
-                'age_limit': 25,
-                'extractor_args': {'youtube': {'skip': ['dash', 'hls']}},
-                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
             }
             if cookies:
                 ydl_opts['cookies'] = cookiesPath
@@ -104,7 +95,7 @@ def download_page():
                         print(f"Error al eliminar archivo: {e}")
 
                 # Ejecutar la eliminación en un hilo después de 5 segundos
-                threading.Timer(5, delete_file).start()
+                threading.Timer(10, delete_file).start()
                 
                 return send_file(file, as_attachment=True)
             else:
@@ -113,31 +104,62 @@ def download_page():
             return str(e), 500
 
     return render_template('download_page.html')
-@app.route('/changeFormats', methods=['POST'])
+
+@app.route('/changeFormats', methods=['POST', 'GET'])
 def changeFormats():
     if request.method == 'POST':
-        url = request.form['url']
-        formato = request.form['formato']  # Capturar formato seleccionado (mp3 o mp4)
-        if not url:
-            return "No se proporcionó un enlace válido", 400
+        # Obtener el archivo cargado y el formato seleccionado
+        archivo = request.files['url']
+        formato = request.form['formato']  # Capturar formato seleccionado (mp3, wav, mp4, avi, etc.)
+        
+        if archivo.filename == '':
+            return "No se proporcionó un archivo válido", 400
+        
         try:
-            file_path = download_video(url, formato)
-            if file_path and os.path.exists(file_path):
-                file = Path("temp_audio") / os.path.basename(file_path)
+            # Guardar el archivo temporalmente
+            archivo_path = os.path.join(TEMP_DIR_FILES, archivo.filename)
+            archivo.save(archivo_path)
+
+            # Obtener la extensión del archivo y el nuevo nombre según el formato
+            ext = os.path.splitext(archivo.filename)[1]
+            if formato == 'mp3':
+                output_file = os.path.join(TEMP_DIR_FILES, f"{os.path.splitext(archivo.filename)[0]}.mp3")
+                ffmpeg.input(archivo_path).output(output_file).run()
+            elif formato == 'wav':
+                output_file = os.path.join(TEMP_DIR_FILES, f"{os.path.splitext(archivo.filename)[0]}.wav")
+                ffmpeg.input(archivo_path).output(output_file).run()
+            elif formato == 'mp4':
+                output_file = os.path.join(TEMP_DIR_FILES, f"{os.path.splitext(archivo.filename)[0]}.mp4")
+                ffmpeg.input(archivo_path).output(output_file).run()
+            elif formato == 'avi':
+                output_file = os.path.join(TEMP_DIR_FILES, f"{os.path.splitext(archivo.filename)[0]}.avi")
+                ffmpeg.input(archivo_path).output(output_file).run()
+            else:
+                return "Formato no soportado", 400
+
+            # Verificar si el archivo de salida existe
+            if os.path.exists(output_file):
+                
+
                 def delete_file():
                     try:
-                        if os.path.exists(file_path):
-                            os.remove(file_path)
-                            print(f"Archivo eliminado: {file_path}")
+                        if os.path.exists(output_file):
+                            os.remove(output_file)
+                            print(f"Archivo eliminado: {output_file}")
                     except Exception as e:
                         print(f"Error al eliminar archivo: {e}")
+                
                 # Ejecutar la eliminación en un hilo después de 5 segundos
                 threading.Timer(5, delete_file).start()
-                return send_file(file, as_attachment=True)
+                fileName = "temp_files/" + os.path.basename(output_file)
+                # Devolver el archivo convertido al usuario
+                return send_file(fileName, as_attachment=True)
             else:
                 return "No se pudo procesar el archivo.", 500
         except Exception as e:
             return str(e), 500
+    
     return render_template('changeFormatFiles.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

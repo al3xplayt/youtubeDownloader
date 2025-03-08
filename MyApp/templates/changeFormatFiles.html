@@ -1,11 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cambiar Formato de Archivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content {
+            margin: 30px auto;
+            width: 70%;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .content h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+    </style>
 </head>
 <body>
-    
+
+    <!-- Header with Navigation -->
+    <header>
+        <h1>Página de Cambio de Formato</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('download_page') }}">Descargar videos YouTube</a></li>
+                <li><a href="{{ url_for('changeFormats') }}">Cambiar formato de archivo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Cambiar Formato de Audio o Video</h2>
+        
+        <!-- Form to Enter URL and Select Format -->
+        <form action="{{ url_for('changeFormats') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="url">Selecciona el archivo</label>
+                <input type="file" id="url" name="url" required>
+            </div>
+
+            <div class="form-group">
+                <label for="formato">Selecciona el formato de salida:</label>
+                <select id="formato" name="formato" required>
+                    <option value="mp3">MP3 (Audio)</option>
+                    <option value="wav">WAV (Audio)</option>
+                    <option value="mp4">MP4 (Video)</option>
+                    <option value="avi">AVI (Video)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Cambiar Formato</button>
+            </div>
+        </form>
+
+        <!-- Optional: Display status message after processing -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">
+                    <p>{{ messages[0] }}</p>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Página de Videojuegos</p>
+    </footer>
+
 </body>
 </html>
